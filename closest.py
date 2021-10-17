@@ -20,7 +20,7 @@ def closest(array: list, target: int, count: int) -> list:
             if target == array[0]:
                 a = (array[:count + 1])
             if target == array[-1]:
-                a = array[-count - 1:]
+                a = array[-count:]
             elif (abs(array[left - 2] - target)) < abs((array[left + 1] - target)):
                 a = (array[left - (count) // 2 - 1: left + 1])
             else:
@@ -32,11 +32,13 @@ def closest(array: list, target: int, count: int) -> list:
                         i += 1
         if left == 0:
             a = (array[left:count])
-        elif (left - count) <= 1:
+        elif (left - count) <= -1:
             if target == array[0]:
                 a = (array[:count + 1])
             if target == array[-1]:
-                a = array[-count - 1:]
+                a = array[-count:]
+            else:
+                a = array[left-(count//2):left+(count//2)+1]
     if target not in array:
         if left == -1:
             a = array[0:count // 2 + 1]
@@ -45,9 +47,9 @@ def closest(array: list, target: int, count: int) -> list:
         if target > array[-1]:
             a = array[-count:]
         elif array[left] < target:
-            a = array[left - (count // 2) + 1:left + (count // 2) + 2]
+            a = array[left - (count // 2) + 1:left + (count // 2) + 1]
         elif array[left] > target:
-            a = (array[left - (count // 2):left + (count // 2) + 1])
+            a = (array[left - (count // 2):left + (count // 2) + 2])
     if type(a) != list:
         i = []
         for k in a:
