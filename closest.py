@@ -40,20 +40,24 @@ def closest(array: list, target: int, count: int) -> list:
             else:
                 a = array[left-(count//2):left+(count//2)+1]
     if target not in array:
-        if left == -1:
-            a = array[0:count // 2 + 1]
-        if target < array[0]:
-            a = array[:count]
-        if target > array[-1]:
-            a = array[-count:]
+        if left < 0:
+            a = array[:count // 2 + 1]
         elif array[left] < target:
             a = array[left - (count // 2) + 1:left + (count // 2) + 1]
+            if left - count < -1:
+                a = array[:count]
         elif array[left] > target:
-            a = (array[left - (count // 2):left + (count // 2) + 2])
+            a = (array[left - (count // 2):left + (count // 2) + 1])
     if type(a) != list:
         i = []
         for k in a:
             i.append(k)
         a = i
+    if count == len(array):
+        a = array
+    if target < array[0]:
+        a = array[:count]
+    if target > array[-1]:
+        a = array[-count:]
 
     return a
